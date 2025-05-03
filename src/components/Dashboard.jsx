@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import "../assets/dashboard.css";
@@ -30,9 +31,9 @@ export default function Dashboard() {
           <RefreshCcw />
         </button>
         {/* Ya no hay Brigadas */}
-        <button onClick={() => nav("/expertos")} title="Expertos">
-          <Users />
-        </button>
+        <Link to="/expertos" title="Expertos" className="sidebar-button">
+        <Users />
+        </Link>
         <button onClick={() => nav("/tools")}>
           <Settings />
         </button>
