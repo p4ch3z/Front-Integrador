@@ -1,0 +1,162 @@
+.expert-section {
+    padding: 100px;
+    width: auto;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .expert-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .expert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  
+  .expert-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .expert-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .expert-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+  
+  .expert-role {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 4px;
+  }
+  
+  .expert-name {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 12px;
+  }
+
+  .task-form {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 10px;
+    max-width: 300px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .task-form input,
+  .task-form textarea {
+    background: #f5f0f0;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid #999;
+    font-size: 1rem;
+  }
+  
+  .task-form button {
+    background-color: #00b276;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .task-form button:last-child {
+    background-color: #ccc;
+    color: black;
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    background: #f5f0f0;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .modal-buttons button {
+    flex: 1;
+    background-color: #00b276;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .modal-buttons button:last-child {
+    background-color: #ccc;
+    color: black;
+  }
+  
+  
+  .btn {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 4px 0;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn:hover {
+    background-color: #0e9f6e;
+  }

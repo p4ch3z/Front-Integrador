@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import "../assets/dashboard.css";
+import UserHeader from "../UserHeader/UserHeader";
+import "./dashboard.css";
 import {
   RefreshCcw,
   Settings,
@@ -30,8 +31,7 @@ export default function Dashboard() {
         <button onClick={() => nav("/")}>
           <RefreshCcw />
         </button>
-        {/* Ya no hay Brigadas */}
-        <Link to="/expertos" title="Expertos" className="sidebar-button">
+        <Link to="/Expertos" title="Expertos" className="sidebar-button">
         <Users />
         </Link>
         <button onClick={() => nav("/tools")}>
@@ -47,7 +47,15 @@ export default function Dashboard() {
           <Search />
         </button>
       </aside>
-
+      <UserHeader
+        name="Paola Balaguera"
+        avatar="../public/paola.jpg"
+        onLogout={() => {
+          // Aquí puedes limpiar token, redirigir, etc.
+          alert("Sesión cerrada");
+          // Por ejemplo: navigate("/login");
+        }}
+      />
       <main className="main-content">
         <h1 className="dashboard-title">Dashboard</h1>
 
