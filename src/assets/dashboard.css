@@ -1,0 +1,152 @@
+:root {
+    --sidebar-width: 80px;
+    --sidebar-bg: #1abc9c;
+    --primary: #2980b9;
+    --accent: #16a085;
+    --main-bg: #f0f0f0;
+    --card-radius: 15px;
+    --card-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: sans-serif;
+    background: var(--main-bg);
+  }
+  
+  /* Contenedor general */
+  .dashboard {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* Sidebar fijo */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 2rem;
+    z-index: 10;
+  }
+  
+  .sidebar button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Área principal desplazada */
+  .main-content {
+    margin-left: var(--sidebar-width);
+    flex: 2;
+    width: auto;
+    padding: 2rem;
+    background: var(--main-bg);
+  }
+  
+  /* Tarjeta de bienvenida */
+  .welcome-card {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+    border-radius: var(--card-radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .welcome-card .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .welcome-card .info p {
+    font-size: 1rem;
+  }
+  
+  .welcome-card .info h1 {
+    font-size: 1.5rem;
+    margin-top: 0.25rem;
+  }
+  
+  .welcome-card .info span {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  
+  .welcome-card .profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Grid de tarjetas secundarias */
+  .card-grid {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background: white;
+    border-radius: var(--card-radius);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card svg {
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Mobile: sidebar en fila arriba */
+  @media (max-width: 767px) {
+    .dashboard {
+      flex-direction: column;
+    }
+    .sidebar {
+      position: relative;
+      flex-direction: row;
+      width: 100%;
+      height: auto;
+      padding: 0.5rem 0;
+      gap: 1rem;
+    }
+    .main-content {
+      margin: 0;
+      padding: 1rem;
+    }
+    .welcome-card {
+      flex-direction: column;
+      text-align: center;
+    }
+    .card-grid {
+      flex-direction: column;
+    }
+  }
+  
