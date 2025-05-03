@@ -53,7 +53,7 @@ export default function Dashboard() {
         <section className="welcome-card">
           <div className="info">
             <p>Hola <strong>{nombre}</strong>,</p>
-            <h1>¡Bienvenido@!</h1>
+            <h1>¡Bienvenid@s!</h1>
             <span>{fecha}</span>
           </div>
           <img
