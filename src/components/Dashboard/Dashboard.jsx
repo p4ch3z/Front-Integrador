@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import UserHeader from "../UserHeader/UserHeader";
+import Sidebar from "../asidebar/Sidebar";
 import "./dashboard.css";
 import {
   RefreshCcw,

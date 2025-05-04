@@ -11,6 +11,7 @@ import {
   Users,
   House
 } from "lucide-react";
+import Sidebar from "../asidebar/Sidebar";
 
 const experts = [
   {
@@ -58,26 +59,7 @@ const Expert = () => {
   };
   return (
     <div className="Expertos">
-      <aside className="sidebar">
-        <button onClick={() => nav("/")}>
-          <House />
-        </button>
-        <Link to="/Expertos" title="Expertos" className="sidebar-button">
-          <Users />
-        </Link>
-        <button onClick={() => nav("/tools")}>
-          <Settings />
-        </button>
-        <button onClick={() => nav("/documents")}>
-          <FileText />
-        </button>
-        <button onClick={() => nav("/analytics")}>
-          <BarChart2 />
-        </button>
-        <button onClick={() => nav("/search")}>
-          <Search />
-        </button>
-      </aside>
+      <Sidebar />
       <UserHeader
         name="Paola Balaguera"
         avatar="../public/paola.jpg"
@@ -95,7 +77,7 @@ const Expert = () => {
               <img src={expert.image} alt={expert.name} className="expert-image" />
               <h3 className="expert-role">{expert.role}</h3>
               <p className="expert-name">{expert.name}</p>
-              <button className="btn" onClick={() => handleViewTasks(expert.name)}>
+              <button className="btn" onClick={() => nav("/tareas")}>
                 VER TAREAS
               </button>
               <button className="btn" onClick={() => {

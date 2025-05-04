@@ -44,9 +44,10 @@
   }
   
   .sidebar button {
+    padding: 40px;
     background: none;
-    border: none;
-    color: white;
+    border: #ffffff;
+    color: #ffffff;
     font-size: 24px;
     cursor: pointer;
   }
