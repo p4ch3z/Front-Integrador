@@ -1,6 +1,6 @@
 import React from "react";
 import "./TaskList.css";
-import Sidebar from "../asidebar/Sidebar";
+import Sidebar from "../asidebarJefe/Sidebar";
 import UserHeader from "../UserHeader/UserHeader";
 
 const TaskList = ({ tasks = [], onComplete, onRevert }) => {

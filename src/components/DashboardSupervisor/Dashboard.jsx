@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import UserHeader from "../UserHeader/UserHeader";
-import Sidebar from "../asidebar/Sidebar";
+import Sidebar from "../asidebarSupervisor/Sidebar";
 import "./dashboard.css";
 import {
   RefreshCcw,
@@ -28,26 +28,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <aside className="sidebar">
-        <button onClick={() => nav("/")}>
-          <RefreshCcw />
-        </button>
-        <Link to="/Expertos" title="Expertos" className="sidebar-button">
-        <Users />
-        </Link>
-        <button onClick={() => nav("/tools")}>
-          <Settings />
-        </button>
-        <button onClick={() => nav("/documents")}>
-          <FileText />
-        </button>
-        <button onClick={() => nav("/analytics")}>
-          <BarChart2 />
-        </button>
-        <button onClick={() => nav("/search")}>
-          <Search />
-        </button>
-      </aside>
+      <Sidebar />
       <UserHeader
         name="Paola Balaguera"
         avatar="../public/paola.jpg"
@@ -58,7 +39,7 @@ export default function Dashboard() {
         }}
       />
       <main className="main-content">
-        <h1 className="dashboard-title">Dashboard</h1>
+        <h1 className="dashboard-title">Dashboard Supervisor</h1>
 
         <section className="welcome-card">
           <div className="info">

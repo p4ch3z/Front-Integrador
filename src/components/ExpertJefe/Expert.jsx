@@ -11,7 +11,7 @@ import {
   Users,
   House
 } from "lucide-react";
-import Sidebar from "../asidebar/Sidebar";
+import Sidebar from "../asidebarJefe/Sidebar";
 
 const experts = [
   {
@@ -77,7 +77,7 @@ const Expert = () => {
               <img src={expert.image} alt={expert.name} className="expert-image" />
               <h3 className="expert-role">{expert.role}</h3>
               <p className="expert-name">{expert.name}</p>
-              <button className="btn" onClick={() => nav("/tareas")}>
+              <button className="btn" onClick={() => nav("/tareasjefe")}>
                 VER TAREAS
               </button>
               <button className="btn" onClick={() => {

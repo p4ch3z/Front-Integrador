@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./NewsBoard.css";
 import { Pencil, PlusCircle, MinusCircle } from "lucide-react";
-import Sidebar from "../asidebar/Sidebar";
+import Sidebar from "../asidebarJefe/Sidebar";
 import UserHeader from "../UserHeader/UserHeader";
 
 const NewsBoard = () => {

@@ -1,0 +1,46 @@
+.role-container {
+    height: 100vh;
+    background: linear-gradient(to right, #eef2f3, #8e9eab);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .role-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .role-options {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .role-button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    color: white;
+  }
+  
+  .role-button.jefe {
+    background-color: #0077cc;
+  }
+  
+  .role-button.supervisor {
+    background-color: #00b276;
+  }
+  
+  .role-button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+  
