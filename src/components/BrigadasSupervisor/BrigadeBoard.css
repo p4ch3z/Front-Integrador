@@ -1,0 +1,178 @@
+.brigade-container {
+    background: #f5f5f5;
+    padding: 100px 2rem 2rem 7rem;
+    min-height: 100vh;
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  .brigade-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .brigade-title {
+    
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .action-buttons button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .notification {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #34d399;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  .brigade-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin-top: 1rem;
+  }
+  
+  .brigade-table th,
+  .brigade-table td {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  
+  .brigade-table th {
+    background-color: #ffffff;
+    font-weight: bold;
+  }
+  
+  /* Modal styling for both create/edit */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .modal-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .modal-content input {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .save-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #00b276;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .close-btn:hover {
+    color: #e60000;
+  }
+  
+  .edit-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #2d9cdb;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .edit-circle:hover {
+    background-color: #1c74a6;
+  }
+  
+  .delete-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .delete-circle:hover {
+    transform: scale(1.1);
+    background-color: #000;
+  }
+  

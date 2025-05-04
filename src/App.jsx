@@ -6,6 +6,8 @@ import ExpertosJefe from "./components/ExpertJefe/Expert";
 import TaskListJefe from "./components/TaskListJefe/TaskList";
 import NewsBoardJefe from "./components/NewsBoardJefe/NewsBoard";
 import RoleSelector from "./components/RoleSelector";
+import BrigadeBoard from "./components/BrigadasSupervisor/BrigadeBoard";
+import InvestigationBoard from "./components/InvestigacionSupervisor/InvestigationBoard";
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="/expertosjefe" element={<ExpertosJefe/>} />
         <Route path="/tareasjefe" element={<TaskListJefe />} />
         <Route path="/novedadesjefe" element={<NewsBoardJefe />} />
+        <Route path="/brigadeboard" element={<BrigadeBoard />} />
+        <Route path="/investigacionsupervisor" element={<InvestigationBoard />} />
       </Routes>
     </BrowserRouter>
   );

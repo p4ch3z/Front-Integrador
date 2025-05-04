@@ -1,32 +1,31 @@
-.news-container {
+.investigation-container {
     background: #f5f5f5;
-    padding: 100px;
-    min-height: 100vh; /* Abarca el alto completo de la pantalla */
+    padding: 100px 2rem 2rem 7rem;
+    min-height: 100vh;
     box-sizing: border-box;
+    position: relative;
   }
   
-  .news-header {
+  .investigation-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  .news-title {
+  .investigation-title {
     font-size: 1.5rem;
     font-weight: bold;
   }
   
   .action-buttons {
     display: flex;
-    gap: 10px;
+    gap: 12px;
   }
   
-  img {
-    display: block;
-    margin-top: 10px;
-    border-radius: 10px;
-    max-width: 100%;
-    object-fit: cover;
+  .action-buttons button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
   }
   
   .notification {
@@ -40,48 +39,23 @@
     border: 1px solid #34d399;
     animation: fadeInOut 3s ease-in-out;
   }
-  .form-box {
-    position: relative;
-    background: white;
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    max-width: 400px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
   }
   
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    background: transparent;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #888;
-    cursor: pointer;
-    transition: color 0.2s ease;
-  }
-  
-  .close-btn:hover {
-    color: #e60000;
-  }
-
-  .action-buttons button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-  }
-  
-  .news-table {
+  .investigation-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 10px;
     margin-top: 1rem;
   }
   
-  .news-table th,
-  .news-table td {
+  .investigation-table th,
+  .investigation-table td {
     background: white;
     padding: 12px;
     border-radius: 12px;
@@ -89,67 +63,29 @@
     font-size: 0.95rem;
   }
   
-  .news-table th {
-    background: ff;
+  .investigation-table th {
+    background-color: #f2f2f2;
     font-weight: bold;
   }
   
-  .form-box {
-    background: white;
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    max-width: 400px;
-  }
-  
-  .form-box h3 {
-    font-weight: bold;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  
-  .form-box input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 1rem;
-    background-color: #f3f0f0;
-    font-size: 1rem;
-  }
-  
-  .delete-circle {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background-color: #ff4d4d;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  
-  .delete-circle:hover {
-    transform: scale(1.1);
-    background-color: #000000;
-  }
-
-  .save-btn {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 15px;
+  .report-button {
+    padding: 6px 10px;
     background-color: #00b276;
     color: white;
+    border: none;
+    border-radius: 12px;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     cursor: pointer;
   }
+  
+  .report-button:hover {
+    background-color: #008f5c;
+  }
+  
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -188,7 +124,7 @@
     font-size: 1rem;
   }
   
-  .modal-content .save-btn {
+  .save-btn {
     width: 100%;
     padding: 10px;
     border: none;
@@ -200,7 +136,7 @@
     cursor: pointer;
   }
   
-  .modal-content .close-btn {
+  .close-btn {
     position: absolute;
     top: 12px;
     right: 16px;
@@ -213,7 +149,46 @@
     transition: color 0.2s ease;
   }
   
-  .modal-content .close-btn:hover {
+  .close-btn:hover {
     color: #e60000;
+  }
+  
+  .edit-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #2d9cdb;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .edit-circle:hover {
+    background-color: #1c74a6;
+  }
+  
+  .delete-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .delete-circle:hover {
+    transform: scale(1.1);
+    background-color: #000;
   }
   

@@ -12,6 +12,7 @@ const NewsBoard = () => {
       description: "En el terreno se han generado deslizamientos de tierra",
       date: "1 de mayo del 2025",
       comments: "",
+      imagen: null,
     },
   ]);
 
@@ -28,6 +29,7 @@ const NewsBoard = () => {
     description: "",
     date: "",
     comments: "",
+    imagen: null,
   });
 
   const toggleForm = () => {
@@ -39,6 +41,7 @@ const NewsBoard = () => {
       description: "",
       date: "",
       comments: "",
+      imagen: null,
     });
   };
 
@@ -57,8 +60,20 @@ const NewsBoard = () => {
   };
 
   const handleSave = () => {
-    setNews([...news, formData]);
-    setFormData({ name: "", type: "", description: "", date: "", comments: "" });
+    const nuevaNovedad = {
+      ...formData,
+      imagen: formData.imagen ? URL.createObjectURL(formData.imagen) : null,
+    };
+
+    setNews([...news, nuevaNovedad]);
+    setFormData({
+      name: "",
+      type: "",
+      description: "",
+      date: "",
+      comments: "",
+      imagen: null,
+    });
     setShowCreateForm(false);
     setNotification("Novedad creada ✅");
     setTimeout(() => setNotification(""), 3000);
@@ -76,7 +91,14 @@ const NewsBoard = () => {
     updated[editingIndex] = formData;
     setNews(updated);
     setEditingIndex(null);
-    setFormData({ name: "", type: "", description: "", date: "", comments: "" });
+    setFormData({
+      name: "",
+      type: "",
+      description: "",
+      date: "",
+      comments: "",
+      imagen: null,
+    });
     setShowEditForm(false);
     setNotification("Novedad actualizada ✅");
     setTimeout(() => setNotification(""), 3000);
@@ -118,6 +140,7 @@ const NewsBoard = () => {
             <th>Descripción</th>
             <th>Fecha</th>
             <th>Comentarios</th>
+            <th>Imagen</th>
             {isEditMode && <th>Editar</th>}
             {isDeleteMode && <th>Quitar</th>}
           </tr>
@@ -130,6 +153,22 @@ const NewsBoard = () => {
               <td>{item.description}</td>
               <td>{item.date}</td>
               <td>{item.comments}</td>
+              <td>
+                {item.imagen ? (
+                  <img
+                    src={item.imagen}
+                    alt="Novedad"
+                    style={{
+                      width: "80px",
+                      maxHeight: "60px",
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                    }}
+                  />
+                ) : (
+                  "—"
+                )}
+              </td>
               {isEditMode && (
                 <td>
                   <button className="edit-circle" onClick={() => handleEditClick(index)}>✏️</button>
@@ -148,19 +187,39 @@ const NewsBoard = () => {
       </table>
 
       {showCreateForm && (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <h3>CREAR NOVEDAD</h3>
-          <button className="close-btn" onClick={() => setShowCreateForm(false)}>✖</button>
-          <input name="name" placeholder="Nombre de la novedad" value={formData.name} onChange={handleInputChange} />
-          <input name="type" placeholder="Tipo" value={formData.type} onChange={handleInputChange} />
-          <input name="description" placeholder="Descripción" value={formData.description} onChange={handleInputChange} />
-          <input name="date" placeholder="Fecha inicio" value={formData.date} onChange={handleInputChange} />
-          <input name="comments" placeholder="Comentarios" value={formData.comments} onChange={handleInputChange} />
-          <button className="save-btn" onClick={handleSave}>CREAR</button>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>CREAR NOVEDAD</h3>
+            <button className="close-btn" onClick={() => setShowCreateForm(false)}>✖</button>
+            <input name="name" placeholder="Nombre de la novedad" value={formData.name} onChange={handleInputChange} />
+            <input name="type" placeholder="Tipo" value={formData.type} onChange={handleInputChange} />
+            <input name="description" placeholder="Descripción" value={formData.description} onChange={handleInputChange} />
+            <input name="date" placeholder="Fecha inicio" value={formData.date} onChange={handleInputChange} />
+            <input name="comments" placeholder="Comentarios" value={formData.comments} onChange={handleInputChange} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, imagen: e.target.files[0] }))
+              }
+            />
+            {formData.imagen && (
+              <img
+                src={URL.createObjectURL(formData.imagen)}
+                alt="Vista previa"
+                style={{
+                  width: "100%",
+                  maxHeight: "200px",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                  marginTop: "10px",
+                }}
+              />
+            )}
+            <button className="save-btn" onClick={handleSave}>CREAR</button>
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
       {showEditForm && (
         <div className="modal-overlay">

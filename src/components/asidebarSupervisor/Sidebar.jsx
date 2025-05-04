@@ -17,7 +17,7 @@ export default function Sidebar() {
       <button onClick={() => nav("/dashboardsupervisor")}>
           <House />
         </button>
-        <button onClick={() => nav("/brigadasupervisor")}>
+        <button onClick={() => nav("/brigadeboard")}>
           <Boxes />
         </button>
         <button onClick={() => nav("/investigacionsupervisor")}>
