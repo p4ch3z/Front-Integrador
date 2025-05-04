@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import "./BrigadeBoard.css";
 import { Pencil, PlusCircle, MinusCircle } from "lucide-react";
 import Sidebar from "../asidebarSupervisor/Sidebar";
@@ -17,6 +18,7 @@ const BrigadeBoard = () => {
 
   const [formData, setFormData] = useState({
     id: "",
+    investigacion_id: "",
     jefe: "",
     botanico: "",
     auxiliar: "",
@@ -44,7 +46,7 @@ const BrigadeBoard = () => {
 
   const handleCreate = () => {
     setBrigades([...brigades, formData]);
-    setFormData({ id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
+    setFormData({ id: "", investigacion_id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
     setShowCreateForm(false);
     setNotification("Brigada creada ✅");
     setTimeout(() => setNotification(""), 3000);
@@ -64,7 +66,7 @@ const BrigadeBoard = () => {
     setBrigades(updated);
     setShowEditForm(false);
     setEditingIndex(null);
-    setFormData({ id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
+    setFormData({ id: "", investigacion_id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
     setNotification("Brigada actualizada ✅");
     setTimeout(() => setNotification(""), 3000);
   };
@@ -108,6 +110,7 @@ const BrigadeBoard = () => {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Investigacion_ID</th>
             <th>Jefe de brigada</th>
             <th>Botanico</th>
             <th>Auxiliar</th>
@@ -120,6 +123,7 @@ const BrigadeBoard = () => {
           {brigades.map((b, index) => (
             <tr key={index}>
               <td>{b.id}</td>
+              <td>{b.investigacion_id}</td>
               <td>{b.jefe}</td>
               <td>{b.botanico}</td>
               <td>{b.auxiliar}</td>
@@ -145,6 +149,7 @@ const BrigadeBoard = () => {
             <h3>CREAR BRIGADA</h3>
             <button className="close-btn" onClick={() => setShowCreateForm(false)}>✖</button>
             <input name="id" placeholder="ID" value={formData.id} onChange={handleInputChange} />
+            <input name="investigacion_id" placeholder="Investigacion_ID" value={formData.id} onChange={handleInputChange} />
             <input name="jefe" placeholder="Jefe de brigada" value={formData.jefe} onChange={handleInputChange} />
             <input name="botanico" placeholder="Botánico" value={formData.botanico} onChange={handleInputChange} />
             <input name="auxiliar" placeholder="Auxiliar técnico" value={formData.auxiliar} onChange={handleInputChange} />

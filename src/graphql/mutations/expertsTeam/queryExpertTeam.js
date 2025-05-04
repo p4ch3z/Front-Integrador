@@ -7,3 +7,16 @@ export const CREATE_TEAM = gql`
     }
   }
 `;
+
+export const UPDATE_TEAM = gql`
+  mutation UpdateTeam($investigacionId: Int!, $expertosIds: [Int!]!) {
+    updateTeam(investigacionId: $investigacionId, expertosIds: $expertosIds){
+    success}} `;
+
+export const DELETE_TEAM = gql`
+  mutation DeleteTeam($investigacionId: Int!) {
+    deleteTeam(investigacionId: $investigacionId) {
+      success
+      }
+    }
+  `;
