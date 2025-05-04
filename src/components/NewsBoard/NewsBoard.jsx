@@ -148,7 +148,8 @@ const NewsBoard = () => {
       </table>
 
       {showCreateForm && (
-        <div className="form-box">
+      <div className="modal-overlay">
+        <div className="modal-content">
           <h3>CREAR NOVEDAD</h3>
           <button className="close-btn" onClick={() => setShowCreateForm(false)}>✖</button>
           <input name="name" placeholder="Nombre de la novedad" value={formData.name} onChange={handleInputChange} />
@@ -158,7 +159,8 @@ const NewsBoard = () => {
           <input name="comments" placeholder="Comentarios" value={formData.comments} onChange={handleInputChange} />
           <button className="save-btn" onClick={handleSave}>CREAR</button>
         </div>
-      )}
+      </div>
+    )}
 
       {showEditForm && (
         <div className="modal-overlay">
