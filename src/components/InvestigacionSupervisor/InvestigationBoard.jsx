@@ -8,9 +8,12 @@ import autoTable from "jspdf-autotable";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_INVESTIGATIONS } from "../../graphql/queries/investigacionTask/allInvestigation";
 import { CREATE_INVESTIGATION } from "../../graphql/mutations/investigationTask/createInvestigation";
+import { UPDATE_INVESTIGATION } from "../../graphql/mutations/investigationTask/updateInvestigation";
+import { DELETE_INVESTIGATION } from "../../graphql/mutations/investigationTask/deleteInvestigation";
 
 const InvestigationBoard = () => {
   const [formData, setFormData] = useState({
+    investigacionId: null,
     nombre: "",
     fechaInicio: "",
     fechaFin: "",
@@ -26,10 +29,33 @@ const InvestigationBoard = () => {
 
   const { data, loading, error, refetch } = useQuery(GET_INVESTIGATIONS);
   const [createInvestigation] = useMutation(CREATE_INVESTIGATION);
+  const [updateInvestigation] = useMutation(UPDATE_INVESTIGATION);
+  const [deleteInvestigation] = useMutation(DELETE_INVESTIGATION);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleUpdate = () => {
+    updateInvestigation({
+      variables: {
+        investigacionId: parseInt(formData.investigacionId),
+        nombre: formData.nombre,
+        fechaInicio: formData.fechaInicio,
+        fechaFin: formData.fechaFin,
+        coordenadasGeograficas: formData.ubicacion,
+      },
+    })
+      .then(() => {
+        refetch();
+        resetForm();
+        setNotification("Investigación actualizada ✅");
+      })
+      .catch((err) => {
+        console.error("Error al actualizar investigación:", err);
+        setNotification("❌ Error al actualizar investigación");
+      });
   };
 
   const handleCreate = () => {
@@ -55,6 +81,7 @@ const InvestigationBoard = () => {
   const handleEditClick = (index) => {
     const investigation = data.allInvestigations[index];
     setFormData({
+      investigacionId: investigation.investigacionId,
       nombre: investigation.nombre,
       fechaInicio: investigation.fechaInicio,
       fechaFin: investigation.fechaFin,
@@ -65,16 +92,18 @@ const InvestigationBoard = () => {
     setShowCreateForm(false);
   };
 
-  const handleUpdate = () => {
-    // Esta función es local: no envía datos al backend aún
-    resetForm();
-    setNotification("Investigación actualizada ✅");
-  };
-
   const handleDelete = (index) => {
-    if (window.confirm("¿Deseas eliminar esta investigación?")) {
-      // Esta función también es local; en producción debe hacerse vía mutación
-      setNotification("Investigación eliminada ✅");
+    const investigation = data.allInvestigations[index];
+    if (window.confirm(`¿Eliminar investigación "${investigation.nombre}"?`)) {
+      deleteInvestigation({ variables: { id: parseInt(investigation.investigacionId) } })
+        .then(() => {
+          refetch(); // vuelve a cargar la lista
+          setNotification("Investigación eliminada ✅");
+        })
+        .catch((err) => {
+          console.error("Error al eliminar investigación:", err);
+          setNotification("❌ Error al eliminar investigación");
+        });
     }
   };
 
@@ -103,6 +132,7 @@ const InvestigationBoard = () => {
 
   const resetForm = () => {
     setFormData({
+      investigacionId: null,
       nombre: "",
       fechaInicio: "",
       fechaFin: "",
@@ -162,7 +192,7 @@ const InvestigationBoard = () => {
             <tr><td colSpan="6">Error al cargar investigaciones</td></tr>
           ) : (
             data.allInvestigations.map((inv, index) => (
-              <tr key={inv.id}>
+              <tr key={inv.investigacionId}>
                 <td>{inv.nombre}</td>
                 <td>{inv.fechaInicio}</td>
                 <td>{inv.fechaFin}</td>
@@ -192,10 +222,10 @@ const InvestigationBoard = () => {
         </tbody>
       </table>
 
-      {showCreateForm && (
+      {(showCreateForm || showEditForm) && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>CREAR INVESTIGACIÓN</h3>
+            <h3>{showCreateForm ? "CREAR INVESTIGACIÓN" : "EDITAR INVESTIGACIÓN"}</h3>
             <button className="close-btn" onClick={resetForm}>✖</button>
             <input
               name="nombre"
@@ -221,41 +251,9 @@ const InvestigationBoard = () => {
               value={formData.ubicacion}
               onChange={handleInputChange}
             />
-            <button className="save-btn" onClick={handleCreate}>CREAR</button>
-          </div>
-        </div>
-      )}
-
-      {showEditForm && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>EDITAR INVESTIGACIÓN</h3>
-            <button className="close-btn" onClick={resetForm}>✖</button>
-            <input
-              name="nombre"
-              placeholder="Nombre de la investigación"
-              value={formData.nombre}
-              onChange={handleInputChange}
-            />
-            <input
-              name="fechaInicio"
-              placeholder="Fecha inicio"
-              value={formData.fechaInicio}
-              onChange={handleInputChange}
-            />
-            <input
-              name="fechaFin"
-              placeholder="Fecha fin"
-              value={formData.fechaFin}
-              onChange={handleInputChange}
-            />
-            <input
-              name="ubicacion"
-              placeholder="Ubicación (lat, long)"
-              value={formData.ubicacion}
-              onChange={handleInputChange}
-            />
-            <button className="save-btn" onClick={handleUpdate}>GUARDAR CAMBIOS</button>
+            <button className="save-btn" onClick={showCreateForm ? handleCreate : handleUpdate}>
+              {showCreateForm ? "CREAR" : "GUARDAR CAMBIOS"}
+            </button>
           </div>
         </div>
       )}

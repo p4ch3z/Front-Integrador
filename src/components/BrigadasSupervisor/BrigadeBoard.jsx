@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import "./BrigadeBoard.css";
 import { Pencil, PlusCircle, MinusCircle } from "lucide-react";
 import Sidebar from "../asidebarSupervisor/Sidebar";
@@ -17,6 +18,7 @@ const BrigadeBoard = () => {
 
   const [formData, setFormData] = useState({
     id: "",
+    investigacion_id: "",
     jefe: "",
     botanico: "",
     auxiliar: "",
@@ -29,6 +31,15 @@ const BrigadeBoard = () => {
   const [notification, setNotification] = useState("");
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+
+  const expertos = [
+    { id: 1, nombre: "Paola", clasificacion: "jefe" },
+    { id: 2, nombre: "Pache", clasificacion: "botanico" },
+    { id: 3, nombre: "Diego", clasificacion: "auxiliar" },
+    { id: 4, nombre: "Arley", clasificacion: "coinvestigador" },
+    { id: 5, nombre: "Ricardo", clasificacion: "coinvestigador" },
+    { id: 6, nombre: "Marta", clasificacion: "coinvestigador" },
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +55,7 @@ const BrigadeBoard = () => {
 
   const handleCreate = () => {
     setBrigades([...brigades, formData]);
-    setFormData({ id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
+    setFormData({ id: "", investigacion_id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
     setShowCreateForm(false);
     setNotification("Brigada creada ✅");
     setTimeout(() => setNotification(""), 3000);
@@ -64,7 +75,7 @@ const BrigadeBoard = () => {
     setBrigades(updated);
     setShowEditForm(false);
     setEditingIndex(null);
-    setFormData({ id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
+    setFormData({ id: "", investigacion_id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
     setNotification("Brigada actualizada ✅");
     setTimeout(() => setNotification(""), 3000);
   };
@@ -108,6 +119,7 @@ const BrigadeBoard = () => {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Investigacion_ID</th>
             <th>Jefe de brigada</th>
             <th>Botanico</th>
             <th>Auxiliar</th>
@@ -120,6 +132,7 @@ const BrigadeBoard = () => {
           {brigades.map((b, index) => (
             <tr key={index}>
               <td>{b.id}</td>
+              <td>{b.investigacion_id}</td>
               <td>{b.jefe}</td>
               <td>{b.botanico}</td>
               <td>{b.auxiliar}</td>
@@ -145,12 +158,38 @@ const BrigadeBoard = () => {
             <h3>CREAR BRIGADA</h3>
             <button className="close-btn" onClick={() => setShowCreateForm(false)}>✖</button>
             <input name="id" placeholder="ID" value={formData.id} onChange={handleInputChange} />
-            <input name="jefe" placeholder="Jefe de brigada" value={formData.jefe} onChange={handleInputChange} />
-            <input name="botanico" placeholder="Botánico" value={formData.botanico} onChange={handleInputChange} />
-            <input name="auxiliar" placeholder="Auxiliar técnico" value={formData.auxiliar} onChange={handleInputChange} />
+            <input name="investigacion_id" placeholder="Investigacion_ID" value={formData.investigacion_id} onChange={handleInputChange} />
+
+            <select name="jefe" value={formData.jefe} onChange={handleInputChange}>
+              <option value="">Selecciona jefe</option>
+              {expertos.filter(e => e.clasificacion === "jefe").map(e => (
+                <option key={e.id} value={e.nombre}>{e.nombre}</option>
+              ))}
+            </select>
+
+            <select name="botanico" value={formData.botanico} onChange={handleInputChange}>
+              <option value="">Selecciona botánico</option>
+              {expertos.filter(e => e.clasificacion === "botanico").map(e => (
+                <option key={e.id} value={e.nombre}>{e.nombre}</option>
+              ))}
+            </select>
+
+            <select name="auxiliar" value={formData.auxiliar} onChange={handleInputChange}>
+              <option value="">Selecciona auxiliar</option>
+              {expertos.filter(e => e.clasificacion === "auxiliar").map(e => (
+                <option key={e.id} value={e.nombre}>{e.nombre}</option>
+              ))}
+            </select>
+
             {formData.coinvestigadores.map((c, i) => (
-              <input key={i} name={`coinv-${i}`} placeholder="Co-investigador" value={c} onChange={handleInputChange} />
+              <select key={i} name={`coinv-${i}`} value={c} onChange={handleInputChange}>
+                <option value="">Selecciona co-investigador</option>
+                {expertos.filter(e => e.clasificacion === "coinvestigador").map(e => (
+                  <option key={e.id} value={e.nombre}>{e.nombre}</option>
+                ))}
+              </select>
             ))}
+
             <button className="save-btn" onClick={handleCreate}>CREAR</button>
           </div>
         </div>
@@ -164,7 +203,12 @@ const BrigadeBoard = () => {
             <input name="botanico" placeholder="Botánico" value={formData.botanico} onChange={handleInputChange} />
             <input name="auxiliar" placeholder="Auxiliar técnico" value={formData.auxiliar} onChange={handleInputChange} />
             {formData.coinvestigadores.map((c, i) => (
-              <input key={i} name={`coinv-${i}`} placeholder="Co-investigador" value={c} onChange={handleInputChange} />
+              <select key={i} name={`coinv-${i}`} value={c} onChange={handleInputChange}>
+                <option value="">Selecciona co-investigador</option>
+                {expertos.filter(e => e.clasificacion === "coinvestigador").map(e => (
+                  <option key={e.id} value={e.nombre}>{e.nombre}</option>
+                ))}
+              </select>
             ))}
             <button className="save-btn" onClick={handleUpdate}>EDITAR</button>
           </div>
