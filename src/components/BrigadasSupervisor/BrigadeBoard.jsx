@@ -8,11 +8,12 @@ import UserHeader from "../UserHeader/UserHeader";
 const BrigadeBoard = () => {
   const [brigades, setBrigades] = useState([
     {
-      id: "123123",
+      id: "1",
       jefe: "Paola",
       botanico: "Pache",
       auxiliar: "Diego",
       coinvestigadores: ["Arley", "Ricardo", "Marta"],
+      investigacion_id: "Sao Paulo"
     },
   ]);
 
@@ -33,12 +34,35 @@ const BrigadeBoard = () => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const expertos = [
+    // Jefes
     { id: 1, nombre: "Paola", clasificacion: "jefe" },
-    { id: 2, nombre: "Pache", clasificacion: "botanico" },
-    { id: 3, nombre: "Diego", clasificacion: "auxiliar" },
-    { id: 4, nombre: "Arley", clasificacion: "coinvestigador" },
-    { id: 5, nombre: "Ricardo", clasificacion: "coinvestigador" },
-    { id: 6, nombre: "Marta", clasificacion: "coinvestigador" },
+    { id: 2, nombre: "Arturo", clasificacion: "jefe" },
+    { id: 3, nombre: "Camila", clasificacion: "jefe" },
+    { id: 4, nombre: "Mauricio", clasificacion: "jefe" },
+    { id: 5, nombre: "Silvia", clasificacion: "jefe" },
+  
+    // Botánicos
+    { id: 6, nombre: "Pache", clasificacion: "botanico" },
+    { id: 7, nombre: "Milena", clasificacion: "botanico" },
+    { id: 8, nombre: "Esteban", clasificacion: "botanico" },
+    { id: 9, nombre: "Lina", clasificacion: "botanico" },
+    { id: 10, nombre: "Carlos", clasificacion: "botanico" },
+  
+    // Auxiliares
+    { id: 11, nombre: "Diego", clasificacion: "auxiliar" },
+    { id: 12, nombre: "Carla", clasificacion: "auxiliar" },
+    { id: 13, nombre: "Julián", clasificacion: "auxiliar" },
+    { id: 14, nombre: "Natalia", clasificacion: "auxiliar" },
+    { id: 15, nombre: "Santiago", clasificacion: "auxiliar" },
+  
+    // Coinvestigadores
+    { id: 16, nombre: "Arley", clasificacion: "coinvestigador" },
+    { id: 17, nombre: "Ricardo", clasificacion: "coinvestigador" },
+    { id: 18, nombre: "Marta", clasificacion: "coinvestigador" },
+    { id: 19, nombre: "Sofía", clasificacion: "coinvestigador" },
+    { id: 20, nombre: "Tomás", clasificacion: "coinvestigador" },
+    { id: 21, nombre: "Valeria", clasificacion: "coinvestigador" },
+    { id: 22, nombre: "Luis", clasificacion: "coinvestigador" }
   ];
 
   const handleInputChange = (e) => {
@@ -54,6 +78,8 @@ const BrigadeBoard = () => {
   };
 
   const handleCreate = () => {
+    const lastId = Math.max(...brigades.map(obj => Number(obj.id)));
+    formData.id = lastId+1;
     setBrigades([...brigades, formData]);
     setFormData({ id: "", investigacion_id: "", jefe: "", botanico: "", auxiliar: "", coinvestigadores: ["", "", ""] });
     setShowCreateForm(false);
@@ -119,7 +145,7 @@ const BrigadeBoard = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Investigacion_ID</th>
+            <th>Investigacion</th>
             <th>Jefe de brigada</th>
             <th>Botanico</th>
             <th>Auxiliar</th>
@@ -157,8 +183,8 @@ const BrigadeBoard = () => {
           <div className="modal-content">
             <h3>CREAR BRIGADA</h3>
             <button className="close-btn" onClick={() => setShowCreateForm(false)}>✖</button>
-            <input name="id" placeholder="ID" value={formData.id} onChange={handleInputChange} />
-            <input name="investigacion_id" placeholder="Investigacion_ID" value={formData.investigacion_id} onChange={handleInputChange} />
+            {/* <input name="id" placeholder="ID" value={formData.id} onChange={handleInputChange} /> */}
+            <input name="investigacion_id" placeholder="Nombre de la Investigación" value={formData.investigacion_id} onChange={handleInputChange} />
 
             <select name="jefe" value={formData.jefe} onChange={handleInputChange}>
               <option value="">Selecciona jefe</option>

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const GET_ALL_NEWS = gql`
+export const GET_ALL_NEWS = gql`
   query {
     allNews {
       novedadId

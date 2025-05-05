@@ -3,6 +3,11 @@ import "./NewsBoard.css";
 import { Pencil, PlusCircle, MinusCircle } from "lucide-react";
 import Sidebar from "../asidebarJefe/Sidebar";
 import UserHeader from "../UserHeader/UserHeader";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_ALL_NEWS } from "../../graphql/queries/newsPhoto/allNews";
+import { CREATE_NEWS } from "../../graphql/mutations/newsPhotoMutation/createNew";
+import { UPDATE_NEWS } from "../../graphql/mutations/newsPhotoMutation/updateNew";
+import { DELETE_NEWS } from "../../graphql/mutations/newsPhotoMutation/deleteNew";
 
 const NewsBoard = () => {
   const [news, setNews] = useState([
@@ -22,6 +27,11 @@ const NewsBoard = () => {
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [notification, setNotification] = useState("");
+
+  const { data, loading, error, refetch } = useQuery(GET_ALL_NEWS);
+  const [createNew] = useMutation(CREATE_NEWS);
+  const [updateNew] = useMutation(UPDATE_NEWS);
+  const [deleteNew] = useMutation(DELETE_NEWS);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -60,7 +70,31 @@ const NewsBoard = () => {
   };
 
   const handleSave = () => {
-    const nuevaNovedad = {
+    // nombre
+    // fecha
+    // comentario
+    // investigacionId
+    console.log(formData);
+    
+    createNew({
+        variables: {
+          nombre: formData.name,
+          fecha: formData.date,
+          comentario: formData.comments,
+          investigacionId: formData.ubicacion,
+        },
+      })
+      .then(() => {
+        refetch();
+        resetForm();
+        setNotification("Investigación creada ✅");
+      })
+      .catch((err) => {
+        console.error("Error al crear investigación:", err);
+        setNotification("❌ Error al crear investigación");
+    });
+
+    /* const nuevaNovedad = {
       ...formData,
       imagen: formData.imagen ? URL.createObjectURL(formData.imagen) : null,
     };
@@ -76,7 +110,7 @@ const NewsBoard = () => {
     });
     setShowCreateForm(false);
     setNotification("Novedad creada ✅");
-    setTimeout(() => setNotification(""), 3000);
+    setTimeout(() => setNotification(""), 3000); */
   };
 
   const handleEditClick = (index) => {
@@ -93,11 +127,8 @@ const NewsBoard = () => {
     setEditingIndex(null);
     setFormData({
       name: "",
-      type: "",
-      description: "",
       date: "",
-      comments: "",
-      imagen: null,
+      comments: ""
     });
     setShowEditForm(false);
     setNotification("Novedad actualizada ✅");
@@ -136,39 +167,22 @@ const NewsBoard = () => {
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Descripción</th>
             <th>Fecha</th>
             <th>Comentarios</th>
-            <th>Imagen</th>
             {isEditMode && <th>Editar</th>}
             {isDeleteMode && <th>Quitar</th>}
           </tr>
         </thead>
         <tbody>
-          {news.map((item, index) => (
+          {loading ? (
+            <tr><td colSpan="6">Cargando...</td></tr>
+          ) : error ? (
+            <tr><td colSpan="6">Error al cargar investigaciones</td></tr>
+          ) : data.allNews.map((item, index) => (
             <tr key={index}>
-              <td>{item.name}</td>
-              <td>{item.type}</td>
-              <td>{item.description}</td>
-              <td>{item.date}</td>
-              <td>{item.comments}</td>
-              <td>
-                {item.imagen ? (
-                  <img
-                    src={item.imagen}
-                    alt="Novedad"
-                    style={{
-                      width: "80px",
-                      maxHeight: "60px",
-                      objectFit: "cover",
-                      borderRadius: "8px",
-                    }}
-                  />
-                ) : (
-                  "—"
-                )}
-              </td>
+              <td>{item.nombre}</td>
+              <td>{item.fecha}</td>
+              <td>{item.comentario}</td>
               {isEditMode && (
                 <td>
                   <button className="edit-circle" onClick={() => handleEditClick(index)}>✏️</button>
@@ -192,17 +206,17 @@ const NewsBoard = () => {
             <h3>CREAR NOVEDAD</h3>
             <button className="close-btn" onClick={() => setShowCreateForm(false)}>✖</button>
             <input name="name" placeholder="Nombre de la novedad" value={formData.name} onChange={handleInputChange} />
-            <input name="type" placeholder="Tipo" value={formData.type} onChange={handleInputChange} />
-            <input name="description" placeholder="Descripción" value={formData.description} onChange={handleInputChange} />
+            {/* <input name="type" placeholder="Tipo" value={formData.type} onChange={handleInputChange} /> */}
+           {/*  <input name="description" placeholder="Descripción" value={formData.description} onChange={handleInputChange} /> */}
             <input name="date" placeholder="Fecha inicio" value={formData.date} onChange={handleInputChange} />
             <input name="comments" placeholder="Comentarios" value={formData.comments} onChange={handleInputChange} />
-            <input
+            {/* <input
               type="file"
               accept="image/*"
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, imagen: e.target.files[0] }))
               }
-            />
+            /> */}
             {formData.imagen && (
               <img
                 src={URL.createObjectURL(formData.imagen)}
